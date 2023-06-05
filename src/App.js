@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import EditarTarea from './components/EditarTarea';
+import Header from './components/Header';
+import NuevaTarea from './components/NuevaTarea';
+import Tareas from './components/Tareas';
+
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Provider store={store}>
+          <Header />
+
+          <div className="container mt-5">
+              <Switch>
+                  <Route exact path="/" component={Tareas} />
+                  <Route exact path="/tareas/nuevo" component={NuevaTarea} />
+                  <Route exact path="/tareas/editar/:id" component={EditarTarea} />
+              </Switch>
+          </div>
+      </Provider>
+    </Router>
   );
 }
 
