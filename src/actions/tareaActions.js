@@ -22,7 +22,7 @@ export function crearNuevaTareaAction(tarea) {
         dispatch( agregarTarea() );
 
         try {
-            await clienteAxios.post('/tareas', tarea);
+            await clienteAxios.post('/agregar', tarea);
 
            dispatch( agregarTareaExito(tarea) );
 
@@ -71,7 +71,7 @@ export function obtenerTareasAction() {
         dispatch( descargarTareas() );
 
         try {
-            const respuesta = await clienteAxios.get('/tareas');
+            const respuesta = await clienteAxios.get('/listar');
             dispatch( descargaTareasExitosa(respuesta.data) )
         } catch (error) {
             console.log(error);
@@ -100,7 +100,7 @@ export function borrarTareaAction(identificador) {
         dispatch(obtenerTareaEliminar(identificador) );
 
         try {
-            await clienteAxios.delete(`/tareas/${identificador}`);
+            await clienteAxios.delete(`/remover/${identificador}`);
             dispatch( eliminarTareaExito() );
 
             // Si se elimina, mostrar alerta
@@ -146,7 +146,7 @@ export function editarTareaAction(tarea) {
         dispatch( editarTarea() );
 
         try {
-            await clienteAxios.put(`/tareas/${tarea.identificador}`, tarea);    
+            await clienteAxios.put(`/editar/${tarea.identificador}`, tarea);    
             dispatch( editarTareaExito(tarea) );
         } catch (error) {
             console.log(error);
